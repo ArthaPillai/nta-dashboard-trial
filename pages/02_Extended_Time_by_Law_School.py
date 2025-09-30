@@ -7,7 +7,7 @@ from pathlib import Path
 # Add project root to sys.path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from utils import get_data_path
+from utils import extract_extended_time, get_data_path
 
 # Load data
 try:
