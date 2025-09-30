@@ -3,8 +3,12 @@ import pandas as pd
 import plotly.express as px
 
 # Load data
-file_path = "../Master_NTA_KeyDetails.xlsx"
-df = pd.read_excel(file_path)
+file_path = get_data_path()
+try:
+    df = pd.read_excel(file_path)
+except FileNotFoundError as e:
+    st.error(f"Error: {e}")
+    st.stop()
 
 st.set_page_config(page_title="Requests by Law School", layout="wide")
 st.title("Accommodation Requests by Law School")
