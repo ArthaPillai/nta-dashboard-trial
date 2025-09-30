@@ -1,12 +1,17 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from ..utils import get_data_path
+import sys
+from pathlib import Path
+
+# Add project root to sys.path
+sys.path.append(str(Path(__file__).parent.parent))
+
+from utils import get_data_path
 
 # Load data
-file_path = get_data_path()
 try:
-    df = pd.read_excel(file_path)
+    df = pd.read_excel(get_data_path())
 except FileNotFoundError as e:
     st.error(f"Error: {e}")
     st.stop()
