@@ -1,5 +1,15 @@
 import re
 import pandas as pd
+from pathlib import Path
+
+def get_data_path():
+    """Return the absolute path to Master_NTA_KeyDetails.xlsx in the project root."""
+    # Use the directory of this file (utils.py) and navigate to the root
+    current_dir = Path(__file__).parent
+    data_path = current_dir / "Master_NTA_KeyDetails.xlsx"  # No '../' since utils.py is in root
+    if not data_path.exists():
+        raise FileNotFoundError(f"Excel file not found at: {data_path}")
+    return data_path
 
 def extract_extended_time(accommodations):
     if pd.isna(accommodations):
