@@ -1,11 +1,20 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
-from ..utils import extract_extended_time_numeric, extract_sequential_number, count_accommodations
+import sys
+from pathlib import Path
+
+# Add project root to sys.path
+sys.path.append(str(Path(__file__).parent.parent))
+
+from utils import extract_extended_time_numeric, extract_sequential_number, count_accommodations, get_data_path
 
 # Load data
-file_path = "../Master_NTA_KeyDetails.xlsx"
-df = pd.read_excel(file_path)
+try:
+    df = pd.read_excel(get_data_path())
+except FileNotFoundError as e:
+    st.error(f"Error: {e}")
+    st.stop()
 
 st.set_page_config(page_title="Correlations with Extended Time", layout="wide")
 st.title("Correlations with Extended Time Percentage")
