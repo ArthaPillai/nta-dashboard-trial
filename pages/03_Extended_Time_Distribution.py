@@ -4,8 +4,12 @@ import plotly.express as px
 from ..utils import extract_extended_time
 
 # Load data
-file_path = "../Master_NTA_KeyDetails.xlsx"
-df = pd.read_excel(file_path)
+file_path = get_data_path()
+try:
+    df = pd.read_excel(file_path)
+except FileNotFoundError as e:
+    st.error(f"Error: {e}")
+    st.stop()
 
 st.set_page_config(page_title="Extended Time Distribution", layout="wide")
 st.title("Distribution of Extended Time Requests")
