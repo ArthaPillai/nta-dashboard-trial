@@ -1,10 +1,20 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import sys
+from pathlib import Path
+
+# Add project root to sys.path
+sys.path.append(str(Path(__file__).parent.parent))
+
+from utils import get_data_path
 
 # Load data
-file_path = "../Master_NTA_KeyDetails.xlsx"
-df = pd.read_excel(file_path)
+try:
+    df = pd.read_excel(get_data_path())
+except FileNotFoundError as e:
+    st.error(f"Error: {e}")
+    st.stop()
 
 st.set_page_config(page_title="Correlation Matrix", layout="wide")
 st.title("Correlation Heatmap of Accommodations, Diagnoses, Request Type, and Approval")
