@@ -4,8 +4,12 @@ import plotly.express as px
 from ..utils import extract_diagnoses
 
 # Load data
-file_path = "../Master_NTA_KeyDetails.xlsx"
-df = pd.read_excel(file_path)
+file_path = get_data_path()
+try:
+    df = pd.read_excel(file_path)
+except FileNotFoundError as e:
+    st.error(f"Error: {e}")
+    st.stop()
 
 st.set_page_config(page_title="Top Diagnoses", layout="wide")
 st.title("Top 10 Most Common Diagnoses")
