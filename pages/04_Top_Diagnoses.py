@@ -18,6 +18,9 @@ except FileNotFoundError as e:
     st.error(f"Error: {e}")
     st.stop()
 
+st.set_page_config(page_title="Top Diagnoses", layout="wide")
+st.title("Top 10 Most Common Diagnoses")
+
 all_diagnoses = []
 for diagnosis in df['Diagnosis']:
     all_diagnoses.extend(extract_diagnoses(diagnosis))
