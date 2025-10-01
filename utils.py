@@ -1,14 +1,23 @@
 import re
 import pandas as pd
 from pathlib import Path
+import streamlit as st
 
 def get_data_path():
-    """Return the absolute path to the Excel file in the project root."""
+    """Return the path to the anonymized Excel file in the project root."""
     current_dir = Path(__file__).parent
     data_path = current_dir / "Master_NTA_Anonymized.xlsx"
     if not data_path.exists():
         raise FileNotFoundError(f"Excel file not found at: {data_path}")
     return data_path
+
+@st.cache_data
+def load_data():
+    """Load the anonymized Excel file."""
+    try:
+        return pd.read_excel(get_data_path())
+    except Exception as e:
+        raise FileNotFoundError(f"Error reading Excel file: {e}")
 
 def extract_extended_time(accommodations):
     if pd.isna(accommodations):
