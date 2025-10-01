@@ -7,11 +7,11 @@ from pathlib import Path
 # Add project root to sys.path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from utils import extract_extended_time, get_data_path
+from utils import extract_extended_time, load_data
 
 # Load data
 try:
-    df = pd.read_excel(get_data_path())
+    df = load_data()
 except FileNotFoundError as e:
     st.error(f"Error: {e}")
     st.stop()
@@ -25,7 +25,7 @@ df_with_extended_time = df[df['Extended_Time_Percent'].notna()].copy()
 extended_time_pivot = df_with_extended_time.pivot_table(
     index='Law_School', 
     columns='Extended_Time_Percent', 
-    values='Request_Type',  # Use a non-sensitive column for counting (instead of File_Name)
+    values='Request_ID', 
     aggfunc='count', 
     fill_value=0
 )
