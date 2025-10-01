@@ -25,7 +25,7 @@ df_with_extended_time = df[df['Extended_Time_Percent'].notna()].copy()
 extended_time_pivot = df_with_extended_time.pivot_table(
     index='Law_School', 
     columns='Extended_Time_Percent', 
-    values='File_Name', 
+    values='Request_Type',  # Use a non-sensitive column for counting (instead of File_Name)
     aggfunc='count', 
     fill_value=0
 )
